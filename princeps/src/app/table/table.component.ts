@@ -22,6 +22,7 @@ export class TableComponent {
   cols: any[] = [];
   startingCount: any;
   endCount: any;
+  count: number = 1;
   constructor(private loanDataService: LoanDataService) {}
   ngOnInit() {
     this.loanDataService.getLoanData().subscribe((data) => {
@@ -81,6 +82,22 @@ export class TableComponent {
 
   
     getNextPage(){
-       //inrement count and send to api
+      this.count++
+      this.loanDataService.getPageSize(this.count++).subscribe((data)=>{
+        this.startingCount = data?.loans?.from;
+        this.endCount = data.loans?.to;
+        this.tableData = data.loans?.data;
+      })
     };
+
+    getPreviousPage(){
+      if(this.count === 1){
+        return
+      }
+      this.loanDataService.getPageSize(this.count--).subscribe((data)=>{
+        this.startingCount = data?.loans?.from;
+        this.endCount = data.loans?.to;
+        this.tableData = data.loans?.data;
+      })
+    }
 }

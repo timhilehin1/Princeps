@@ -56,7 +56,7 @@
       <section class="footer_right">
         <div>{{startingCount}} - {{endCount}}</div>
         <div class="pagination_btns">
-          <button class="pagination_btn">Previous</button>
+          <button (click)="getPreviousPage()" class="pagination_btn">Previous</button>
           <button (click)="getNextPage()" class="pagination_btn">Next</button>
         </div>
       </section>

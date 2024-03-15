@@ -13,4 +13,11 @@ export class LoanDataService {
       { page: 1 }
     );
   }
+
+  getPageSize(pageNumber : number): Observable<any> {
+    return this.http.post(
+      'https://testapi.creditwallet.ng/api/v2/loan/list/active/interview',
+      { page: pageNumber }
+    );
+  }
 }
