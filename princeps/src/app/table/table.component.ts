@@ -23,14 +23,15 @@ export class TableComponent {
   startingCount: any;
   endCount: any;
   count: number = 1;
+  totalNumberOfRecords: number = 0;
   constructor(private loanDataService: LoanDataService) {}
   ngOnInit() {
     this.loanDataService.getLoanData().subscribe((data) => {
       this.startingCount = data?.loans?.from;
       this.endCount = data.loans?.to;
       this.tableData = data.loans?.data;
+      // this.totalNumberOfRecords = data.loans?.
     });
-
 
     this.cols = [
       {},
@@ -80,24 +81,23 @@ export class TableComponent {
     ];
   }
 
-  
-    getNextPage(){
-      this.count++
-      this.loanDataService.getPageSize(this.count++).subscribe((data)=>{
-        this.startingCount = data?.loans?.from;
-        this.endCount = data.loans?.to;
-        this.tableData = data.loans?.data;
-      })
-    };
+  getNextPage() {
+    this.count++;
+    this.loanDataService.getPageSize(this.count++).subscribe((data) => {
+      this.startingCount = data?.loans?.from;
+      this.endCount = data.loans?.to;
+      this.tableData = data.loans?.data;
+    });
+  }
 
-    getPreviousPage(){
-      if(this.count === 1){
-        return
-      }
-      this.loanDataService.getPageSize(this.count--).subscribe((data)=>{
-        this.startingCount = data?.loans?.from;
-        this.endCount = data.loans?.to;
-        this.tableData = data.loans?.data;
-      })
+  getPreviousPage() {
+    if (this.count === 0) {
+      return;
     }
+    this.loanDataService.getPageSize(this.count--).subscribe((data) => {
+      this.startingCount = data?.loans?.from;
+      this.endCount = data.loans?.to;
+      this.tableData = data.loans?.data;
+    });
+  }
 }
