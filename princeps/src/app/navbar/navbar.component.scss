@@ -1,0 +1,24 @@
+nav {
+  //   border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1400px;
+  //   padding: 1rem;
+  align-items: center;
+
+  .nav_left {
+    font-size: 2rem;
+  }
+
+  .nav_right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .user_name {
+    font-weight: 600;
+    color: grey;
+    // color: #000;
+  }
+}
